@@ -21,21 +21,23 @@ const loader = new THREE.GLTFLoader();
 
 class Doll {
     constructor() {
-        loader.load("../squid_model/scene.gltf", function (gltf) {
+        loader.load("../squid_model/scene.gltf", (gltf) => {
             scene.add(gltf.scene);
             gltf.scene.scale.set(.3, .3, .3);
             gltf.scene.position.set(0, -1, 0);
+            this.doll = gltf.scene;
         })
     }
-    lookback() {
-        this.doll.rotation.x = 0.75
+    lookBack() {
+        this.doll.rotation.y = -3.1
     }
 
 }
 
 let doll = new Doll()
+
 setTimeout(() => {
-    doll.lookback()
+    doll.lookBack()
 }, 1500);
 
 function animate() {
