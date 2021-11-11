@@ -10,16 +10,33 @@ document.body.appendChild(renderer.domElement);
 // const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
+renderer.setClearColor(0xb90ee90, 1);
+
 const light = new THREE.AmbientLight(0xffffff); // soft white light
 scene.add(light);
 
 camera.position.z = 5;
 // Instantiate a loader
 const loader = new THREE.GLTFLoader();
-loader.load("../squid_model/scene.gltf", function (gltf) {
-    scene.add(gltf.scene);
-    gltf.scene.scale.set(.5, .5, .5);
-})
+
+class Doll {
+    constructor() {
+        loader.load("../squid_model/scene.gltf", function (gltf) {
+            scene.add(gltf.scene);
+            gltf.scene.scale.set(.3, .3, .3);
+            gltf.scene.position.set(0, -1, 0);
+        })
+    }
+    lookback() {
+        this.doll.rotation.x = 0.75
+    }
+
+}
+
+let doll = new Doll()
+setTimeout(() => {
+    doll.lookback()
+}, 1500);
 
 function animate() {
     renderer.render(scene, camera);
