@@ -5,10 +5,19 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// const geometry = new THREE.BoxGeometry();
-// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-// const cube = new THREE.Mesh(geometry, material);
-// scene.add(cube);
+// Global Vars
+
+const start_pos = 3
+const end_pos = -start_pos
+
+function createCube(size, position, rotationY = 0) {
+    const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
+    const material = new THREE.MeshBasicMaterial({ color: 0xADD8E6 });
+    const cube = new THREE.Mesh(geometry, material);
+    cube.position.x = positionX;
+    cube.rotation.y = rotationY;
+    scene.add(cube);
+}
 
 renderer.setClearColor(0xb90ee90, 1);
 
@@ -40,6 +49,14 @@ class Doll {
 }
 
 let doll = new Doll()
+
+function createCourse() {
+    createCube({ w: .2, h: 1.5, d: 2 }, start_pos)
+    createCube({ w: .2, h: 1.5, d: 2 }, end_pos)
+
+}
+createCourse
+
 
 setTimeout(() => {
     doll.lookBackward()
