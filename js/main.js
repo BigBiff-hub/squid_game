@@ -28,8 +28,13 @@ class Doll {
             this.doll = gltf.scene;
         })
     }
-    lookBack() {
-        this.doll.rotation.y = -3.1
+    lookBackward() {
+        //this.doll.rotation.y = -3.1
+        gsap.to(this.doll.rotation, { y: -3.1, duration: .5 })//turn backwards in 0.5 sec
+    }
+    lookForward() {
+        // this.doll.rotation.y = 0;
+        gsap.to(this.doll.rotation, { y: 0, duration: .5 })
     }
 
 }
@@ -37,7 +42,7 @@ class Doll {
 let doll = new Doll()
 
 setTimeout(() => {
-    doll.lookBack()
+    doll.lookBackward()
 }, 1500);
 
 function animate() {
