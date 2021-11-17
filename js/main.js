@@ -70,14 +70,14 @@ class player_1 {
         this.player = sphere
         this.playerInfo = {
             positionX: start_pos,
-            velocity: -0.2
+            velocity: 0
         }
     }
     run() {
-
+        this.player.velocity = 0.02
     }
     update() {
-        this.playerInfo.positionX += this.playerInfo.velocity
+        this.playerInfo.positionX -= this.playerInfo.velocity
         this.playerInfo.position.x += this.playerInfo.positionX
     }
 
@@ -102,3 +102,9 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
+
+window.addEventListener('keydown', (e) => {
+    if (e.key == "ArrowUp") {
+        player.run()
+    }
+})
