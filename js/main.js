@@ -74,7 +74,7 @@ class Player {
         }
     }
     run() {
-        this.player.velocity = 0.03
+        this.playerInfo.velocity = .03
     }
     stop() {
         this.playerInfo.velocity = 0
@@ -115,10 +115,10 @@ window.addEventListener('keydown', (e) => {
     }
 })
 
-// window.addEventListener('keyup', (e) => {
-//     // alert(e.key)
+window.addEventListener('keyup', (e) => {
+    // alert(e.key)
 
-//     if (e.key == "ArrowUp") {
-//         player.stop()
-//     }
-// })
+    if (e.key == "ArrowUp") {
+        player.stop()
+    }
+})
