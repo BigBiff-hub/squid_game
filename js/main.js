@@ -70,7 +70,7 @@ class Player {
         this.player = sphere
         this.playerInfo = {
             positionX: start_pos,
-            velocity: 0.3
+            velocity: 0
         }
     }
     run() {
@@ -83,6 +83,7 @@ class Player {
 
 }
 const player = new Player()
+
 setTimeout(() => {
 
     doll.lookBackward()
@@ -103,8 +104,10 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-// window.addEventListener('keydown', (e) => {
-//     if (e.key == "ArrowUp") {
-//         player.run()
-//     }
-// })
+window.addEventListener('keydown', (e) => {
+    // alert(e.key)
+
+    if (e.key == "ArrowUp") {
+        player.run()
+    }
+})
