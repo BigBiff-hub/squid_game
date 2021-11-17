@@ -61,21 +61,37 @@ createCourse()
 
 class player_1 {
     constructor() {
-        const geometry = new THREE.SphereGeometry(15, 32, 16);
-        const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        const geometry = new THREE.SphereGeometry(.1, 32, 16);
+        const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
+        sphere.position.z = 1
+        sphere.position.x = start_pos
+        scene.add(sphere)
+        this.player = sphere
+        this.playerInfo = {
+            positionX: start_pos,
+            velocity: -0.2
+        }
+    }
+    run() {
+
+    }
+    update() {
+        this.playerInfo.positionX += this.playerInfo.velocity
+        this.playerInfo.position.x += this.playerInfo.positionX
     }
 
 }
 const player = new player_1()
 setTimeout(() => {
+
     doll.lookBackward()
 }, 1500);
 
 function animate() {
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
+    player.update()
 }
 animate();
 
