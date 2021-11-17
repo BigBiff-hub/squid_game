@@ -29,6 +29,10 @@ camera.position.z = 5;
 // Instantiate a loader
 const loader = new THREE.GLTFLoader();
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+
+}
 class Doll {
     constructor() {
         loader.load("../squid_model/scene.gltf", (gltf) => {
@@ -45,6 +49,14 @@ class Doll {
     lookForward() {
         // this.doll.rotation.y = 0;
         gsap.to(this.doll.rotation, { y: 0, duration: .5 })
+    }
+    async start() {
+        this.lookBackward()
+        await sleep(Math.random() * 1000 + 1000)
+        this.lookForward()
+        await sleep(Math.random() * 800 + 350)
+        this.start()
+
     }
 
 }
@@ -77,7 +89,8 @@ class Player {
         this.playerInfo.velocity = .03
     }
     stop() {
-        this.playerInfo.velocity = 0
+        //this.playerInfo.velocity = 0
+        gsap.to(this.playerInfo, { velocity: 0, duration: .3 })
     }
     update() {
         this.playerInfo.positionX -= this.playerInfo.velocity
@@ -89,7 +102,7 @@ const player = new Player()
 
 setTimeout(() => {
 
-    doll.lookBackward()
+    doll.start()
 }, 1500);
 
 function animate() {
