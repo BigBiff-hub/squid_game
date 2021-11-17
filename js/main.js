@@ -59,7 +59,7 @@ function createCourse() {
 }
 createCourse()
 
-class player_1 {
+class Player {
     constructor() {
         const geometry = new THREE.SphereGeometry(.1, 32, 16);
         const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -70,7 +70,7 @@ class player_1 {
         this.player = sphere
         this.playerInfo = {
             positionX: start_pos,
-            velocity: 0
+            velocity: 0.3
         }
     }
     run() {
@@ -78,11 +78,11 @@ class player_1 {
     }
     update() {
         this.playerInfo.positionX -= this.playerInfo.velocity
-        this.playerInfo.position.x += this.playerInfo.positionX
+        this.player.position.x = this.playerInfo.positionX
     }
 
 }
-const player = new player_1()
+const player = new Player()
 setTimeout(() => {
 
     doll.lookBackward()
@@ -103,8 +103,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-window.addEventListener('keydown', (e) => {
-    if (e.key == "ArrowUp") {
-        player.run()
-    }
-})
+// window.addEventListener('keydown', (e) => {
+//     if (e.key == "ArrowUp") {
+//         player.run()
+//     }
+// })
