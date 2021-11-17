@@ -17,6 +17,7 @@ function createCube(size, positionX, rotationY = 0, color = 0xadd8e6) {
     cube.position.x = positionX;
     cube.rotation.y = rotationY;
     scene.add(cube);
+    return cube;
 }
 
 renderer.setClearColor(0xb90ee90, 1);
@@ -51,9 +52,10 @@ class Doll {
 let doll = new Doll()
 
 function createCourse() {
+    createCube({ w: start_pos * 2 + 0.2, h: 1.5, d: 2 }, 0, 0, 0x00008b).position.z = -1.5;
     createCube({ w: .2, h: 1.5, d: 2 }, start_pos, -.5)
     createCube({ w: .2, h: 1.5, d: 2 }, end_pos, 0.5)
-    createCube({ w: start_pos * 2, h: 1.5, d: 2 }, 0, 0)
+
 }
 createCourse()
 
