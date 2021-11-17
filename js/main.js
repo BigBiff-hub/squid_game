@@ -10,9 +10,9 @@ document.body.appendChild(renderer.domElement);
 const start_pos = 3
 const end_pos = -start_pos
 
-function createCube(size, positionX, rotationY = 0) {
+function createCube(size, positionX, rotationY = 0, color = 0xadd8e6) {
     const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffDD8E6 });
+    const material = new THREE.MeshBasicMaterial({ color: color });
     const cube = new THREE.Mesh(geometry, material);
     cube.position.x = positionX;
     cube.rotation.y = rotationY;
@@ -53,7 +53,7 @@ let doll = new Doll()
 function createCourse() {
     createCube({ w: .2, h: 1.5, d: 2 }, start_pos, -.5)
     createCube({ w: .2, h: 1.5, d: 2 }, end_pos, 0.5)
-    createCube({ w: .2, h: 1.5, d: 2 }, 0, 0)
+    createCube({ w: start_pos * 2, h: 1.5, d: 2 }, 0, 0)
 }
 createCourse()
 
