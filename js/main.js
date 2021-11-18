@@ -9,6 +9,9 @@ document.body.appendChild(renderer.domElement);
 
 const start_pos = 3
 const end_pos = -start_pos
+const text = document.querySelector(".text")
+const TIME_LIMIT = 10
+let game_stat = "loading"
 
 function createCube(size, positionX, rotationY = 0, color = 0xadd8e6) {
     const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
@@ -63,6 +66,26 @@ class Doll {
 
 let doll = new Doll()
 
+async function init() {
+    await sleep(500)
+    text.innerText = "Game Staring in 3!"
+    await sleep(500)
+    text.innerText = "Game Staring in 2!"
+    await sleep(500)
+    text.innerText = "Game Staring in 1!"
+    await sleep(500)
+    text.innerText = "GO!"
+    startGame()
+
+}
+function startGame() {
+    game_stat = "started"
+    let progressbar = createCube({ w: 5, h: .1, d: 1 }, 0)
+    progressbar.position.y = 3.3
+    gsap.to(progressbar.scale, { x: 0, duration: TIME_LIMIT, ease: "none" })
+    doll.start()
+}
+init()
 function createCourse() {
     createCube({ w: start_pos * 2 + 0.2, h: 1.5, d: 2 }, 0, 0, 0x00008b).position.z = -1.5;
     createCube({ w: .2, h: 1.5, d: 2 }, start_pos, -.5)
@@ -122,7 +145,7 @@ function onWindowResize() {
 
 window.addEventListener('keydown', (e) => {
     // alert(e.key)
-
+    if (game_stat != "started") return
     if (e.key == "ArrowUp") {
         player.run()
     }
