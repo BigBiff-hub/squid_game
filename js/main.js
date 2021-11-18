@@ -49,12 +49,12 @@ class Doll {
     lookBackward() {
         //this.doll.rotation.y = -3.1
         gsap.to(this.doll.rotation, { y: -3.1, duration: .5 })//turn backwards in 0.38 sec
-        setTimeout(() => isredlight = true, 500)
+        setTimeout(() => isredlight = true, 150)
     }
     lookForward() {
         // this.doll.rotation.y = 0;
         gsap.to(this.doll.rotation, { y: 0, duration: .5 })
-        setTimeout(() => isredlight = false, 150)
+        setTimeout(() => isredlight = false, 500)
     }
     async start() {
         this.lookBackward()
@@ -87,6 +87,13 @@ function startGame() {
     progressbar.position.y = 3.3
     gsap.to(progressbar.scale, { x: 0, duration: TIME_LIMIT, ease: "none" })
     doll.start()
+    setTimeout(() => {
+        if (game_stat != "over") {
+            text.innerText = "Time up  :("
+            game_stat = "over"
+        }
+
+    }, TIME_LIMIT * 1000)
 }
 init()
 function createCourse() {
@@ -120,10 +127,14 @@ class Player {
     }
     check() {
         if (this.playerInfo.velocity > 0 && !isredlight) {
-            alert("you lost :(")
+            //alert("you lost :(")
+            text.innerText = "You Lost"
+            game_stat = "over"
 
-            if (this.playerInfo.positionX < end_pos) {
-                alert("you win :)!")
+            if (this.playerInfo.positionX < end_pos + 0.5) {
+                //alert("you win :)!")
+                text.innerText = "You Won"
+                game_stat = "over"
             }
         }
     }
@@ -145,6 +156,7 @@ setTimeout(() => {
 }, 1500);
 
 function animate() {
+    if (game_stat == "over") return
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
     player.update()
