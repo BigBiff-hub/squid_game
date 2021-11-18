@@ -5,3 +5,4 @@ Purpose of this project is to get familiar with the javascript language in an in
 1. Threejs for rendering the 3d image of the doll is a cool feature
 2. Used GSAP for automations as well (for the smooth turning of the doll when the light goes from red to green)
 3. GLTF loader to load in the large 3d image into the webpage
+![This is an image](Image/project.JPG)
