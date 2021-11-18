@@ -12,6 +12,7 @@ const end_pos = -start_pos
 const text = document.querySelector(".text")
 const TIME_LIMIT = 10
 let game_stat = "loading"
+let isredlight = false
 
 function createCube(size, positionX, rotationY = 0, color = 0xadd8e6) {
     const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
@@ -47,17 +48,19 @@ class Doll {
     }
     lookBackward() {
         //this.doll.rotation.y = -3.1
-        gsap.to(this.doll.rotation, { y: -3.1, duration: .5 })//turn backwards in 0.5 sec
+        gsap.to(this.doll.rotation, { y: -3.1, duration: .5 })//turn backwards in 0.38 sec
+        setTimeout(() => isredlight = true, 500)
     }
     lookForward() {
         // this.doll.rotation.y = 0;
         gsap.to(this.doll.rotation, { y: 0, duration: .5 })
+        setTimeout(() => isredlight = false, 150)
     }
     async start() {
         this.lookBackward()
         await sleep(Math.random() * 1000 + 1000)
         this.lookForward()
-        await sleep(Math.random() * 800 + 350)
+        await sleep(Math.random() * 800 + 1000)
         this.start()
 
     }
@@ -115,12 +118,25 @@ class Player {
         //this.playerInfo.velocity = 0
         gsap.to(this.playerInfo, { velocity: 0, duration: .3 })
     }
+    check() {
+        if (this.playerInfo.velocity > 0 && !isredlight) {
+            alert("you lost :(")
+
+            if (this.playerInfo.positionX < end_pos) {
+                alert("you win :)!")
+            }
+        }
+    }
+
+
     update() {
+        this.check()
         this.playerInfo.positionX -= this.playerInfo.velocity
         this.player.position.x = this.playerInfo.positionX
     }
 
 }
+
 const player = new Player()
 
 setTimeout(() => {
